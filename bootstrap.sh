@@ -3,6 +3,14 @@
 # root
 sudo su
 
+## locale
+locale-gen en_US.UTF-8
+update-locale LANG=en_US.UTF-8
+dpkg-reconfigure locales
+## timezone
+echo Asia/Tokyo > /etc/timezone
+dpkg-reconfigure --frontend noninteractive tzdata
+
 
 ## Add nginx latest stable to apt
 nginx=stable
@@ -11,11 +19,6 @@ add-apt-repository ppa:nginx/$nginx
 apt-add-repository ppa:git-core/ppa
 ## PHP
 add-apt-repository ppa:ondrej/php
-
-
-# Purge
-sudo apt-get purge php5
-sudo apt-get purge apache2
 
 
 # apt update
@@ -31,7 +34,11 @@ apt-get install -y memcached build-essential
 # Install nginx
 apt-get install -y nginx
 # Install PHP7
-apt-get install php7.0 php7.0-fpm php7.0-mysql php7.0-xml -y
+apt-get install php7.0 php7.0-fpm php7.0-mysql php7.0-xml php7.0-curl -y
+# MySQL
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password ""'
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password ""'
+sudo apt-get install mysql-server-5.6 -y
 
 
 if ! [ -L /var/www ]; then
