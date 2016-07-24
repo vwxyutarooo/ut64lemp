@@ -4,6 +4,7 @@
 sudo su
 
 ## locale
+apt-get install language-pack-UTF-8
 locale-gen en_US.UTF-8
 update-locale LANG=en_US.UTF-8
 dpkg-reconfigure locales
@@ -54,8 +55,10 @@ if ! [ -L /var/www ]; then
 fi
 
 if ! [ -L /etc/nginx ]; then
+  rm -rf /etc/nginx/sites-enabled/.
   rm -rf /etc/nginx/conf.d
   ln -fs /vagrant/conf/nginx/conf.d /etc/nginx/conf.d
+  service nginx restart
 fi
 
 
