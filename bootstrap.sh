@@ -47,10 +47,15 @@ sudo apt-get install mysql-server-5.7 -y
 MYSQL_PWD=root mysql -u root -e "source /vagrant/bootstrap.sql"
 
 
+# Create symlinks
 if ! [ -L /var/www ]; then
-  # Symlink our host www to the guest /var/www folder
   rm -rf /var/www
   ln -fs /vagrant/www /var/www
+fi
+
+if ! [ -L /etc/nginx ]; then
+  rm -rf /etc/nginx/conf.d
+  ln -fs /vagrant/conf/nginx/conf.d /etc/nginx/conf.d
 fi
 
 
