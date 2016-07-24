@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# root
+
 sudo su
 
 ## locale
@@ -19,6 +19,8 @@ add-apt-repository ppa:nginx/$nginx
 apt-add-repository ppa:git-core/ppa
 ## PHP
 add-apt-repository ppa:ondrej/php
+## MySQL
+add-apt-repository ppa:ondrej/mysql-5.7
 
 
 # apt update
@@ -27,24 +29,29 @@ apt-get -y upgrade
 apt-get -y autoremove
 
 
-# Update and begin installing some utility tools
+# Begin installing some utility tools
 apt-get install -y python-software-properties
 apt-get install -y vim git curl
 apt-get install -y memcached build-essential
+
 # Install nginx
 apt-get install -y nginx
-# Install PHP7
+Install PHP7
 apt-get install php7.0 php7.0-fpm php7.0-mysql php7.0-xml php7.0-curl -y
+
 # MySQL
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password ""'
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password ""'
-sudo apt-get install mysql-server-5.6 -y
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
+sudo apt-get install mysql-server-5.7 -y
+
+MYSQL_PWD=root mysql -u root -e "source /vagrant/bootstrap.sql"
 
 
 if ! [ -L /var/www ]; then
   # Symlink our host www to the guest /var/www folder
   rm -rf /var/www
   ln -fs /vagrant/www /var/www
-
-  echo "Provisioning has completed. Default server should now be listening on http://192.168.33.10"
 fi
+
+
+echo "Provisioning has completed. Default server should now be listening on http://192.168.33.10"
