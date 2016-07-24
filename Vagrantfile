@@ -31,7 +31,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "private_network", ip: "192.168.33.10"
 
   if Vagrant.has_plugin?('vagrant-hostsupdater')
-    # config.vm.hostname = "ut64elmp.dev"
+    config.vm.hostname = "ut64lemp.dev"
     config.hostsupdater.remove_on_suspend = true
   end
 
