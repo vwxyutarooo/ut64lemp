@@ -3,17 +3,18 @@
 
 sudo su
 
+# Base configulation
 ## locale
-apt-get install language-pack-UTF-8
-locale-gen en_US.UTF-8
-update-locale LANG=en_US.UTF-8
-dpkg-reconfigure locales
+export LANG=en_US.UTF-8
+export LC_ALL=$LANG
+locale-gen --purge $LANG
+dpkg-reconfigure -f noninteractive locales && /usr/sbin/update-locale LANG=$LANG LC_ALL=$LANG
 ## timezone
 echo Asia/Tokyo > /etc/timezone
 dpkg-reconfigure --frontend noninteractive tzdata
 
 
-## Add nginx latest stable to apt
+# Add nginx latest stable to apt
 nginx=stable
 add-apt-repository ppa:nginx/$nginx
 ## Git
@@ -47,9 +48,9 @@ php composer-setup.php
 php -r 'unlink("composer-setup.php");'
 
 # MySQL
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
-sudo apt-get install mysql-server-5.7 -y
+debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
+debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
+apt-get install mysql-server-5.7 -y
 
 MYSQL_PWD=root mysql -u root -e "source /vagrant/bootstrap.sql"
 
