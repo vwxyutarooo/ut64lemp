@@ -37,7 +37,7 @@ apt-get install -y memcached build-essential
 
 # Install nginx
 apt-get install -y nginx
-Install PHP7
+# Install PHP7
 apt-get install php7.0 php7.0-fpm php7.0-mysql php7.0-xml php7.0-curl -y
 
 # MySQL
@@ -55,7 +55,7 @@ if ! [ -L /var/www ]; then
 fi
 
 if ! [ -L /etc/nginx ]; then
-  rm -rf /etc/nginx/sites-enabled/.
+  rm -rf /etc/nginx/sites-enabled/*
   rm -rf /etc/nginx/conf.d
   ln -fs /vagrant/conf/nginx/conf.d /etc/nginx/conf.d
   service nginx restart
