@@ -37,8 +37,14 @@ apt-get install -y memcached build-essential
 
 # Install nginx
 apt-get install -y nginx
-# Install PHP7
+
+# Install PHP
 apt-get install php7.0 php7.0-fpm php7.0-mysql php7.0-xml php7.0-curl -y
+## Composer
+php -r 'copy("https://getcomposer.org/installer", "composer-setup.php");'
+php -r 'if (hash_file("SHA384", "composer-setup.php") === "e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae") { echo "Installer verified"; } else { echo "Installer corrupt"; unlink("composer-setup.php"); } echo PHP_EOL;'
+php composer-setup.php
+php -r 'unlink("composer-setup.php");'
 
 # MySQL
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
