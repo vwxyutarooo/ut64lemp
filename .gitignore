@@ -52,3 +52,5 @@ build
 
 # Project dependencies
 .vagrant/
+www/*
+!www/default
