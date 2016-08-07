@@ -63,9 +63,8 @@ fi
 
 if ! [ -L /etc/nginx ]; then
   rm -rf /etc/nginx/sites-enabled/*
-  rm -rf /etc/nginx/conf.d
-  ln -fs /vagrant/conf/nginx/conf.d /etc/nginx/conf.d
-  service nginx restart
+  rm -rf /etc/nginx/conf.d/*
+  cp -r /vagrant/conf/nginx/conf.d conf.d
 fi
 
 
