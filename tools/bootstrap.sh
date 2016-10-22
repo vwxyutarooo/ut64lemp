@@ -35,7 +35,7 @@ apt-get -y autoremove
 
 # Begin installing some utility tools
 apt-get install -y python-software-properties
-apt-get install -y vim git curl
+apt-get install -y vim git curl zip unzip
 apt-get install -y memcached build-essential
 
 ## locale
@@ -48,7 +48,7 @@ locale-gen --purge --aliases=$HOME/locale.alias
 apt-get install -y nginx
 
 ## Install PHP
-apt-get install php7.0 php7.0-fpm php7.0-mysql php7.0-xml php7.0-curl php7.0-mbstring -y
+apt-get install php7.0 php7.0-fpm php7.0-mysql php7.0-xml php7.0-curl php7.0-mbstring php7.0-gd php7.0-zip -y
 ### Composer
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 
