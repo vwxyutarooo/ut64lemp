@@ -2,7 +2,7 @@ echo 'Start copy nginx conf'
 
 rm -rf /etc/nginx/sites-enabled/*
 
-if ! [ -L /vagrant/conf/nginx/nginx.conf ]; then
+if [ -L /vagrant/conf/nginx/nginx.conf ]; then
   rm -f /etc/nginx/nginx.conf
   cp /vagrant/conf/nginx/nginx.conf /etc/nginx/nginx.conf
 fi
